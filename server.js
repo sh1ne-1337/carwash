@@ -1,9 +1,10 @@
 import express from "express";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
-import { sequelize } from "./db.js";
-import customerRoutes from "./routes/customerRoutes.js";
-import logger from './logger.js';
+import morgan from "morgan";
+import { sequelize } from "./database/db.js";
+import routes from "./routes/routes.js";
+import logger from "./common/logger.js";
 
 dotenv.config();
 
@@ -13,14 +14,27 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 
-sequelize.authenticate()
-    .then(() => 
-    {
-        logger.info('Connected to PostgreSQL database');
-        return sequelize.sync(); 
-    })
-    .catch((err) => { console.error("Error connecting:", err); });
+app.use(
+  morgan("combined", {
+    stream: {
+      write: (message) => logger.http(message.trim()),
+    },
+  })
+);
 
-app.use("/customers", customerRoutes);
+sequelize
+  .authenticate()
+  .then(() => {
+    logger.info("Connected to PostgreSQL database");
+    return sequelize.sync();
+  })
+  .catch((err) => {
+    logger.error("Error connecting:", err);
+    process.exit(1);
+  });
 
-app.listen(3000);
+app.use("/", routes);
+
+app.listen(process.env.PORT, () => {
+  logger.info(`Server started successfully on port ${process.env.PORT}`);
+});

@@ -1,7 +1,14 @@
 import { createLogger, format, transports } from "winston";
 
 const logger = createLogger({
-  level: "info",
+  level: "http",
+  levels: {
+    error: 0,
+    warn: 1,
+    info: 2,
+    http: 3,
+    debug: 4,
+  },
   format: format.combine(
     format.timestamp({ format: "YYYY-MM-DD HH:mm:ss" }),
     format.printf(({ timestamp, level, message }) => {

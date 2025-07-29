@@ -3,11 +3,11 @@ dotenv.config();
 
 export default {
   development: {
-    host: process.env.HOST,
-    port: process.env.PORT,
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
     username: process.env.DB_USER,
-    password: process.env.PASSWORD,
+    password: process.env.DB_PASSWORD,
     database: process.env.DATABASE,
-    dialect: 'postgres',
+    dialect: "postgres",
   },
 };
