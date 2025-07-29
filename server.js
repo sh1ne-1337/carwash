@@ -8,6 +8,8 @@ import logger from './logger.js';
 
 dotenv.config();
 
+logger.info('Server started successfully on port 3000');
+
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
