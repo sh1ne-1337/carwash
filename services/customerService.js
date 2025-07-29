@@ -4,7 +4,6 @@ export const CustomerService =
 {
     async getAll() 
     {
-        console.log("pidARAS");
         return await Customer.findAll();
     },
 
