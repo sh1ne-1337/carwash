@@ -5,10 +5,9 @@ import morgan from "morgan";
 import { sequelize } from "./database/db.js";
 import routes from "./routes/routes.js";
 import logger from "./common/logger.js";
+import chalk from "chalk";
 
 dotenv.config();
-
-logger.info('Server started successfully on port 3000');
 
 const app = express();
 app.use(express.json());
@@ -36,5 +35,5 @@ sequelize
 app.use("/", routes);
 
 app.listen(process.env.PORT, () => {
-  logger.info(`Server started successfully on port ${process.env.PORT}`);
+  logger.info(chalk.bgMagenta(`Server started successfully on port ${process.env.PORT}`));
 });

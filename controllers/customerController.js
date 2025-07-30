@@ -7,7 +7,7 @@ export const CustomerController = {
       const customers = await CustomerService.getAll();
       res.status(STATUS_CODES.OK).json(customers);
     } catch (error) {
-      console.error(error);
+      logger.error(error);
       res
         .status(STATUS_CODES.INTERNAL_SERVER_ERROR)
         .json({ message: "Server error" });
@@ -23,7 +23,7 @@ export const CustomerController = {
           .json({ message: "Not found" });
       res.status(STATUS_CODES.OK).json(customer);
     } catch (error) {
-      console.error(error);
+      logger.error(error);
       res
         .status(STATUS_CODES.INTERNAL_SERVER_ERROR)
         .json({ message: "Server error" });
@@ -35,7 +35,7 @@ export const CustomerController = {
       const customer = await CustomerService.create(req.body);
       res.status(STATUS_CODES.CREATED).json(customer);
     } catch (error) {
-      console.error(error);
+      logger.error(error);
       res
         .status(STATUS_CODES.INTERNAL_SERVER_ERROR)
         .json({ message: "Server error" });
@@ -51,7 +51,7 @@ export const CustomerController = {
           .json({ message: "Not found" });
       res.status(STATUS_CODES.OK).json(updated);
     } catch (error) {
-      console.error(error);
+      logger.error(error);
       res
         .status(STATUS_CODES.INTERNAL_SERVER_ERROR)
         .json({ message: "Server error" });
@@ -69,7 +69,7 @@ export const CustomerController = {
         .status(STATUS_CODES.OK)
         .json({ message: "Deleted", customer: deleted });
     } catch (error) {
-      console.error(error);
+      logger.error(error);
       res
         .status(STATUS_CODES.INTERNAL_SERVER_ERROR)
         .json({ message: "Server error" });
